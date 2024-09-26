@@ -1,0 +1,12 @@
+dp/*.aux
+dp/*.fdb_latexmk
+dp/*.fls
+dp/*.log
+dp/*.nav
+dp/*.out
+dp/*.pdf
+dp/*.snm
+dp/*.synctex.gz
+dp/*.toc
+dp/*.vrb
+dp/pic/sample.pdf
