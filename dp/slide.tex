@@ -61,228 +61,344 @@
 %==========================================================
 \begin{document}
 %==========================================================
+% Page de titre
 \begin{frame}
     \titlepage
 \end{frame}
 
+% Plan de la présentation
 \begin{frame}
+    \frametitle{Plan de la Présentation}
     \tableofcontents[hideallsubsections]
 \end{frame}
-\section{test}
-\begin{frame}[t]
-    \frametitle{Historique des Design Patterns}
-    
-    \begin{tikzpicture}[xscale=0.8, yscale=1.5, every node/.style={scale=0.9}]
-        % Ligne principale de la timeline
-        \draw[line width=1mm, -latex, red!50] (-0.2,0) -- (15,0);
-        
-        % Boucles sur les années avec animation (onslide pour l'affichage séquentiel)
-        \foreach \X [evaluate=\X as \Y using int(\X-1970), count=\Z] in {1977, 1987, 1994, 1995, 2004, 2010} {
-            \onslide<\Z->{% Affiche la section de la timeline au bon moment
-                \draw[fill=red!80!black, color=red!80!black] (\Y-0.2,-0.5) -- (\Y+0.2,-0.5) -- (\Y,-0.1) -- cycle;
-                \node[anchor=south, fill=white, rotate=45, anchor=south west, inner sep=0pt] at (\Y,0.2) {\X};
-            }
-        }
-    \end{tikzpicture}
-    
-    % Liste des événements animés
-    \begin{itemize}
-        \item<1> \textbf{1977}: Christopher Alexander introduit l'idée de patrons dans l'architecture.
-        \item<2> \textbf{1987}: Ward Cunningham et Kent Beck appliquent l'idée de *patterns* en génie logiciel.
-        \item<3> \textbf{1994}: Publication du livre « *Design Patterns: Elements of Reusable Object-Oriented Software* » par le Gang of Four.
-        \item<4> \textbf{1995}: Les *design patterns* deviennent populaires avec Java et les langages orientés objet.
-        \item<5> \textbf{2004}: Première conférence internationale sur les *patterns* (PLOP).
-        \item<6> \textbf{2010}: Adoption massive des *design patterns* dans le développement Agile et les pratiques DevOps.
-    \end{itemize}
-    
-    \end{frame}
-    
+
 %==========================================================
 \section{Introduction}
-    \subsection{Objectif du Cours}
-        \begin{frame}{Objectif du Cours}
-            \begin{itemize}
-                \item<1-> \textbf{But principal :} Comprendre les concepts fondamentaux des \textbf{Design Patterns} et savoir comment les appliquer dans la conception orientée objet.
-                \item<2-> \textbf{Focus sur :} 
-                \begin{itemize}
-                    \item L'importance des Design Patterns pour améliorer la flexibilité, la réutilisabilité et la maintenabilité des logiciels.
-                    \item L'apprentissage des patterns les plus courants, tels que \textit{Singleton, Factory, Adapter, Observer, Strategy}.
-                \end{itemize}                
-                \item<3-> \textbf{À la fin du cours :} Vous serez capable de :
-                \begin{itemize}
-                    \item Développer la capacité à identifier le pattern approprié en fonction du contexte.
-                    \item Maîtriser l'utilisation des design patterns pour résoudre des problèmes de conception.                    
-                \end{itemize}
-            \end{itemize}
-            \only<4>{
-            \begin{alertblock}{Note} {
-                Tous les \textbf{Design Patterns} existants ne seront pas abordés dans ce cours. Nous nous concentrerons sur ceux qui sont les plus utilisés dans le développement moderne.
-            }
-            \end{alertblock}   
-            }
-        \end{frame}
-    \subsection{Historique}
-        \begin{frame}{Histoire des Design Patterns}
-            \begin{itemize}
-                \item \textbf{Années 1970} : Le concept de "patterns" a été introduit par \textbf{Christopher Alexander}, un architecte qui a formalisé l'idée de modèles réutilisables en architecture.
-                \item \textbf{Années 1980} : Les premières applications de ces concepts dans le développement logiciel ont vu le jour avec la programmation orientée objet.
-                \item \textbf{1994} : Publication du livre fondateur \textit{"Design Patterns: Elements of Reusable Object-Oriented Software"} par les \textbf{Gang of Four} (GoF) :
-                    \begin{itemize}
-                        \item Erich Gamma
-                        \item Richard Helm
-                        \item Ralph Johnson
-                        \item John Vlissides
-                    \end{itemize}
-                \item \textbf{Objectif} : Fournir des solutions réutilisables aux problèmes récurrents dans la conception de logiciels orientés objet.
-                \item \textbf{Depuis les années 2000} : Les *Design Patterns* sont devenus un élément central de l'enseignement et de la pratique de la conception logicielle.
-            \end{itemize}
-        \end{frame}
 
-\section{Design pattern}
-    \subsection{Motivation}
-        \begin{frame}{Pourquoi les Design Patterns ?}
-            \textbf{Les Design Patterns} fournissent des solutions éprouvées à des problèmes de conception récurrents dans le développement orienté objet. Ils permettent une meilleure communication entre développeurs, facilitent la maintenabilité et l'évolution du code, et encouragent la réutilisation de solutions. Nous allons explorer les raisons clés d'utiliser les Design Patterns.
-        \end{frame}
+\subsection{Objectifs du Cours}
 
-        \begin{frame}{1. Des solutions réutilisables aux problèmes récurrents}
+\begin{frame}{Objectifs du Cours}
+    \begin{itemize}
+        \item \textbf{Comprendre} les concepts fondamentaux des \textbf{Design Patterns} en POO.
+        \item \textbf{Acquérir} les compétences pour \textbf{identifier} et \textbf{appliquer} les patterns appropriés en fonction des problèmes rencontrés.
+        \item \textbf{Développer} la capacité à concevoir des logiciels \textbf{flexibles}, \textbf{réutilisables} et \textbf{maintenables}.
+        \item \textbf{Maîtriser} les patterns les plus courants tels que \textbf{Singleton}, \textbf{Factory}, \textbf{Adapter}, \textbf{Observer}, \textbf{Strategy}.
+    \end{itemize}
+\end{frame}
+
+\subsection{Plan du Cours}
+
+\begin{frame}{Plan du Cours}
+    \tableofcontents
+\end{frame}
+
+\subsection{Pourquoi les Design Patterns ?}
+
+\begin{frame}{Pourquoi étudier les Design Patterns ?}
+    \begin{itemize}
+        \item \textbf{Réutilisation} de solutions éprouvées.
+        \item \textbf{Amélioration} de la communication entre développeurs.
+        \item \textbf{Facilitation} de la maintenabilité et de l'évolution du code.
+        \item \textbf{Renforcement} de la flexibilité et de la modularité des applications.
+    \end{itemize}
+\end{frame}
+
+%==========================================================
+\section{Historique des Design Patterns}
+\begin{frame}{Origines des Design Patterns}
+    \begin{columns}
+        \begin{column}{0.6\textwidth}
             \begin{itemize}
-                \item Les Design Patterns offrent des solutions standardisées aux problèmes rencontrés régulièrement dans différents projets.
-                \item \textbf{Exemple :} Le \textbf{Singleton} permet de s'assurer qu'une classe n'a qu'une seule instance (par exemple, une connexion unique à une base de données).
+                \item \textbf{Années 1970} : Introduction du concept de "patterns" par \textbf{Christopher Alexander}, architecte.
+                \item \textbf{Application en informatique} : Les idées d'Alexander sont adaptées au développement logiciel.
+                \item \textbf{1994} : Publication du livre \textit{"Design Patterns: Elements of Reusable Object-Oriented Software"}.
             \end{itemize}
-        \end{frame}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \includegraphics[width=0.8\textwidth]{pic/christopher_alexander.jpg}
+            \begin{center}
+                \small{\textit{Christopher Alexander}}
+            \end{center}
+        \end{column}
+    \end{columns}
+\end{frame}
 
-        \begin{frame}{2. Amélioration de la communication}
-            \begin{itemize}
-                \item Les Design Patterns créent un vocabulaire commun entre développeurs.
-                \item Lorsqu'un développeur mentionne un pattern (\textit{ex : Utilisons un Factory ici}), l'équipe comprend immédiatement l'intention de conception.
-                \item Cela simplifie la collaboration et aide les nouveaux membres à s'intégrer plus rapidement.
-            \end{itemize}
-        \end{frame}
-
-        \begin{frame}{3. Faciliter la maintenabilité et l’évolution du code}
-            \begin{itemize}
-                \item Les Design Patterns aident à concevoir des systèmes flexibles et modulaires, facilitant l’ajout de nouvelles fonctionnalités sans devoir réécrire le code.
-                \item \textbf{Exemple :} Le \textbf{Observer} permet de réagir aux changements d'état sans affecter d'autres parties du système.
-            \end{itemize}
-        \end{frame}
-
-        \begin{frame}{4. Réutilisation de l’expérience plutôt que du code}
-            \begin{itemize}
-                \item Les Design Patterns permettent de réutiliser des solutions et des stratégies déjà éprouvées dans d'autres projets.
-                \item Cela améliore non seulement la qualité des logiciels, mais aussi les compétences des développeurs.
-                \item \textbf{Idée clé :} Avec les patterns, vous réutilisez de l’expérience, pas seulement du code.
-            \end{itemize}
-        \end{frame}
-
-        \begin{frame}{5. Renforcer la flexibilité et la modularité}
-            \begin{itemize}
-                \item Les Design Patterns encouragent la séparation des préoccupations et la modularité du code.
-                \item Cela permet de changer des fonctionnalités sans affecter le reste du système.
-                \item \textbf{Exemple :} Le \textbf{Strategy} permet de changer d'algorithme à l'exécution sans modifier le cœur du programme.
-            \end{itemize}
-        \end{frame}
-
-        \begin{frame}{6. Quand utiliser les Design Patterns ?}
-            \begin{itemize}
-                \item Utilisez les Design Patterns pour des problèmes récurrents avec des solutions standardisées.
-                \item Évitez de les surutiliser dans des projets simples, où des solutions spécifiques peuvent suffire.
-                \item \textbf{Conseil :} Soyez attentifs aux situations où un pattern améliore réellement la structure et la maintenabilité du code.
-            \end{itemize}
-        \end{frame}
-
-        \begin{frame}{Conclusion}
+  \begin{frame}{Le Gang of Four (GoF)}
+    \begin{columns}
+      \begin{column}{0.6\textwidth}
         \begin{itemize}
-            \item Les Design Patterns apportent des solutions robustes et éprouvées.
-            \item Ils facilitent la communication, la maintenabilité et l'évolutivité des systèmes logiciels.
-            \item Leur utilisation doit être réfléchie, pour éviter la complexité inutile.
-            \item En les adoptant, vous améliorez la qualité de vos conceptions tout en réduisant la complexité et en facilitant l'évolution du code à long terme.
+          \item \textbf{Erich Gamma}
+          \item \textbf{Richard Helm}
+          \item \textbf{Ralph Johnson}
+          \item \textbf{John Vlissides}
         \end{itemize}
-        \end{frame}
-    \subsection{Catégories}
-        \begin{frame}{Catégories}
-            \begin{columns}
-                \begin{column}{0.5\textwidth}
-                    \onslide<1>{  
-                        \centering
-                        \par Il existe trois grandes catégories de design patterns
-                    }
-                    \begin{itemize}
-                        \item<2-> \textbf{Créationnels :} Concernent la manière dont les objets sont créés.             
-                        \item<3-> \textbf{Structurels :} Traitent de l'organisation des classes et des objets, ainsi que de leurs relations.               
-                        \item<4-> \textbf{Comportementaux :} Concernent l'interaction et la communication entre objets.
-                    \end{itemize}
-                \end{column}
-                \begin{column}{0.5\textwidth}
-                    \only<1>{
-                        \includegraphics[width=\textwidth]{pic/dep_categorie_1.jpg}
-                    }
-                    \only<2>{
-                        \includegraphics[width=\textwidth]{pic/dep_categorie_2.jpg}
-                    }
-                    \only<3>{
-                        \includegraphics[width=\textwidth]{pic/dep_categorie_3.jpg}
-                    }
-                    \only<4>{
-                        \includegraphics[width=\textwidth]{pic/dep_categorie_4.jpg}
-                    }
-                \end{column}
-            \end{columns}
-        \end{frame}
-
-
-\section{Rappel des fondamentaux OO}
-    \begin{frame}{Pourquoi l'approche POO (Programmation Orientée Objet)}
+        \pause
         \begin{itemize}
-            \item \textbf{Modularité :} Favorise la division du code en modules réutilisables (classes et objets).
-            \item \textbf{Réutilisabilité :} Encourage la réutilisation du code grâce à l'héritage et à la composition.
-            \item \textbf{Facilité de maintenance :} Le code orienté objet est plus facile à comprendre, tester, et modifier.
-            \item \textbf{Correspond à la réalité :} Permet de modéliser des objets du monde réel de manière plus naturelle en représentant des entités avec des propriétés et des comportements.
+          \item Leur livre a profondément influencé la conception logicielle.
+          \item A établi un vocabulaire commun pour les développeurs.
+          \item A favorisé la diffusion des bonnes pratiques en POO.
         \end{itemize}
-    \end{frame}
-
-    \begin{frame}{Rappel : Principes de la POO (Programmation Orientée Objet)}
-        \begin{itemize}
-            \item \textbf{Encapsulation :} Les données (attributs) et les comportements (méthodes) sont regroupés dans des objets. Les détails internes sont cachés et protégés.
-            \item \textbf{Héritage :} Les classes peuvent hériter des attributs et méthodes d'une autre classe pour éviter la duplication et faciliter la réutilisation du code.
-            \item \textbf{Polymorphisme :} Permet à une méthode d’avoir plusieurs implémentations, ce qui favorise la flexibilité dans le code.
-            \item \textbf{Abstraction :} Les objets représentent des concepts abstraits qui modélisent des éléments du monde réel, simplifiant ainsi la conception et la compréhension du code.
-        \end{itemize}
-    \end{frame}
-
-    \begin{frame}{Comparaison : Héritage vs Composition}
-        \begin{itemize}
-            \item \textbf{Héritage :}
-            \begin{itemize}
-                \item Relation "est-un" : La sous-classe hérite des propriétés et comportements de la classe parent.
-                \item Favorise la réutilisation de code mais peut entraîner une dépendance forte entre les classes.
-                \item \textit{Exemple :} Un \textbf{Chien} hérite de la classe \textbf{Animal}.
-            \end{itemize}
-
-            \item \textbf{Composition :}
-            \begin{itemize}
-                \item Relation "a-un" : Une classe est composée d'autres classes.
-                \item Favorise une conception plus flexible, car les composants peuvent être remplacés ou modifiés plus facilement.
-                \item \textit{Exemple :} Une \textbf{Voiture} est composée d'un \textbf{Moteur}, \textbf{Roues}, etc.
-            \end{itemize}
-            
-            \item \textbf{Conclusion :} La composition est souvent préférée à l’héritage, car elle permet une meilleure flexibilité et évolutivité, tout en évitant les problèmes liés à une hiérarchie d'héritage rigide.
-        \end{itemize}
-    \end{frame}
-
-\section{References}
-    \begin{frame}[allowframebreaks]
-        {
-            \tiny
-            \bibliographystyle{alpha}
-            \bibliography{ref}
-        }
-    \end{frame}
-
-
-    \begin{frame}
+      \end{column}
+      \begin{column}{0.4\textwidth}
+        \includegraphics[width=0.9\textwidth]{pic/gof_book.jpg}
         \begin{center}
-            {\Huge\calligra Merci}
+          \small{\textit{Couverture du livre du GoF}}
         \end{center}
-    \end{frame}
+      \end{column}
+    \end{columns}
+  \end{frame}
+
+%==========================================================
+\section{Pourquoi les Design Patterns ?}
+
+\subsection{Des solutions réutilisables aux problèmes récurrents}
+
+\begin{frame}{Des solutions réutilisables aux problèmes récurrents}
+    \begin{columns}
+        \begin{column}{0.6\textwidth}
+            \begin{itemize}
+                \item \textbf{Standardisation} des solutions pour des problèmes connus.
+                \item \textbf{Gain de temps} : Évite de "réinventer la roue".
+                \pause
+                \item \textbf{Exemple} : Le \textbf{Singleton} pour garantir une seule instance d'une classe.
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \begin{center}
+                \includegraphics[width=0.8\textwidth]{pic/singleton_pattern.png}
+            \end{center}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\subsection{Amélioration de la communication}
+
+\begin{frame}{Amélioration de la communication}
+    \begin{columns}
+        \begin{column}{0.6\textwidth}
+            \begin{itemize}
+                \item \textbf{Vocabulaire commun} facilitant les échanges.
+                \item \textbf{Clarté} dans la documentation et le code.
+                \pause
+                \item \textbf{Exemple} : "Utilisons un \textbf{Factory Method} ici."
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \begin{center}
+                \includegraphics[width=0.8\textwidth]{pic/communication.png}
+            \end{center}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\subsection{Facilitation de la maintenabilité et de l'évolution du code}
+\begin{frame}{Facilitation de la maintenabilité et de l'évolution du code}
+    \begin{columns}
+        \begin{column}{0.6\textwidth}
+            \begin{itemize}
+                \item \textbf{Code modulaire} et \textbf{flexible}.
+                \item \textbf{Facilité} d'ajout de nouvelles fonctionnalités.
+                \pause
+                \item \textbf{Exemple} : Le \textbf{Decorator} pour ajouter des responsabilités dynamiquement.
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \begin{center}
+                \includegraphics[width=1.0\textwidth]{pic/decorator_pattern.png}
+            \end{center}
+        \end{column}
+    \end{columns}
+\end{frame}
+\subsection{Renforcement de la flexibilité et de la modularité}
+
+\begin{frame}{Renforcement de la flexibilité et de la modularité}
+    \begin{columns}
+        \begin{column}{0.6\textwidth}
+    \begin{itemize}
+        \item \textbf{Séparation des préoccupations}.
+        \item \textbf{Interopérabilité} entre les composants.
+        \pause
+        \item \textbf{Exemple} : Le \textbf{Adapter} pour faire collaborer des interfaces incompatibles.
+    \end{itemize}
+\end{column}
+\begin{column}{0.4\textwidth}
+    \begin{center}
+        \includegraphics[width=0.8\textwidth]{pic/adapter_pattern.png}
+    \end{center}
+\end{column}
+\end{columns}
+\end{frame}
+
+%==========================================================
+\section{Catégories de Design Patterns}
+
+\begin{frame}{Catégories de Design Patterns}
+    \begin{columns}
+        \begin{column}{0.6\textwidth}
+            \begin{itemize}
+                \item \textbf{Créationnels} : Gestion de la création des objets.
+                    \begin{itemize}
+                        \item \textbf{Exemples} : Singleton, Factory Method, Abstract Factory, Builder, Prototype.
+                    \end{itemize}
+                \item \textbf{Structurels} : Composition des classes et des objets.
+                    \begin{itemize}
+                        \item \textbf{Exemples} : Adapter, Decorator, Composite, Facade, Bridge, Proxy, Flyweight.
+                    \end{itemize}
+                \item \textbf{Comportementaux} : Interaction et responsabilité entre les objets.
+                    \begin{itemize}
+                        \item \textbf{Exemples} : Observer, Strategy, Command, Iterator, Mediator, State, Visitor, Template Method.
+                    \end{itemize}
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+                \begin{center}
+                    \includegraphics[width=1.0\textwidth]{pic/design_patterns_categories.jpg}
+                \end{center}
+            \end{column}
+        \end{columns}
+\end{frame}
+
+\begin{frame}{Tableau Comparatif des Catégories}
+
+\end{frame}
+
+%==========================================================
+\section{Rappel des Fondamentaux de la POO}
+
+\subsection{Principes de la Programmation Orientée Objet}
+
+\begin{frame}{Principes de la Programmation Orientée Objet}
+    \begin{columns}
+        \begin{column}{0.6\textwidth}
+            \begin{itemize}
+                \item \textbf{Encapsulation} : Regrouper les données et les méthodes.
+                \item \textbf{Abstraction} : Cacher la complexité et ne montrer que l'essentiel.
+                \item \textbf{Héritage} : Réutiliser le code en créant des sous-classes.
+                \item \textbf{Polymorphisme} : Utiliser une interface commune pour des actions différentes.
+            \end{itemize}
+        \end{column}
+        \begin{column}{0.4\textwidth}
+            \pause
+            \begin{center}
+                \includegraphics[width=0.6\textwidth]{pic/poo_principles.png}
+            \end{center}
+        \end{column}
+    \end{columns}
+\end{frame}
+
+\subsection{Héritage vs Composition}
+
+\begin{frame}{Comparaison : Héritage vs Composition}
+    \begin{itemize}
+        \item \textbf{Héritage} (\textit{est-un})
+              \begin{itemize}
+                  \item Avantages :
+                        \begin{itemize}
+                            \item Réutilisation du code.
+                            \item Simplicité de conception.
+                        \end{itemize}
+                  \item Inconvénients :
+                        \begin{itemize}
+                            \item Couplage fort entre classes.
+                            \item Rigidité face aux changements.
+                        \end{itemize}
+              \end{itemize}
+        \item \textbf{Composition} (\textit{a-un})
+              \begin{itemize}
+                  \item Avantages :
+                        \begin{itemize}
+                            \item Flexibilité.
+                            \item Faible couplage.
+                        \end{itemize}
+                  \item Inconvénients :
+                        \begin{itemize}
+                            \item Complexité initiale.
+                            \item Plus de code à écrire.
+                        \end{itemize}
+              \end{itemize}
+    \end{itemize}
+\end{frame}
+
+\begin{frame}{Recommandations}
+    \begin{itemize}
+        \item \textbf{Privilégier la composition} pour une meilleure flexibilité.
+        \item \textbf{Utiliser l'héritage} lorsque les classes ont une relation naturelle de type \textit{est-un}.
+        \item \textbf{Exemple UML} :
+    \end{itemize}
+    % \begin{center}
+    %   \includegraphics[width=0.7\textwidth]{pic/uml_composition_inheritance.png}
+    % \end{center}
+\end{frame}
+
+%==========================================================
+\section{Études de Cas et Exemples}
+
+\subsection{Exemple : Le Pattern Observer}
+
+\begin{frame}{Exemple : Le Pattern Observer}
+    \begin{itemize}
+        \item \textbf{Problème} : Comment notifier automatiquement des objets lorsque l'état d'un autre objet change ?
+        \item \textbf{Solution} : Utiliser le pattern \textbf{Observer} pour établir une relation entre un sujet et ses observateurs.
+        \item \textbf{Cas d'utilisation} : Modèle-Vue-Contrôleur (MVC), événements GUI.
+    \end{itemize}
+    \pause
+    % \begin{center}
+    %   \includegraphics[width=0.7\textwidth]{pic/observer_pattern.png}
+    % \end{center}
+\end{frame}
+
+\subsection{Exercice Pratique}
+
+\begin{frame}{Exercice Pratique}
+    \textbf{Scénario} : Vous développez une application de messagerie. Lorsqu'un nouvel utilisateur s'inscrit, tous les services associés (profil, notifications, emails) doivent être informés.
+
+    \vspace{0.5cm}
+
+    \textbf{Question} : Quel design pattern utiliseriez-vous pour implémenter cette fonctionnalité, et comment ?
+
+    \vspace{0.5cm}
+
+    \pause
+
+    \textbf{Réponse attendue} : Utilisation du \textbf{Pattern Observer} pour que les services s'abonnent aux événements d'inscription.
+\end{frame}
+
+%==========================================================
+\section{Ressources et Références}
+
+\begin{frame}{Ressources et Références}
+    \begin{itemize}
+        \item \textbf{Livres} :
+              \begin{itemize}
+                  \item \textit{Design Patterns: Elements of Reusable Object-Oriented Software} - GoF
+                  \item \textit{Head First Design Patterns} - Eric Freeman et al.
+              \end{itemize}
+        \item \textbf{Sites Web} :
+              \begin{itemize}
+                  \item \href{https://refactoring.guru/design-patterns}{Refactoring Guru}
+                  \item \href{https://www.tutorialspoint.com/design_pattern/index.htm}{TutorialsPoint - Design Patterns}
+              \end{itemize}
+        \item \textbf{Communautés} :
+              \begin{itemize}
+                  \item \href{https://stackoverflow.com}{Stack Overflow}
+                  \item \href{https://www.meetup.com/topics/softwaredev/}{Meetup - Software Development}
+              \end{itemize}
+    \end{itemize}
+\end{frame}
+
+%==========================================================
+\begin{frame}{Questions ?}
+    \begin{center}
+        {\Huge\calligra Merci !}
+
+        \vspace{1cm}
+
+        \Large{Des questions ou des commentaires ?}
+
+        \vspace{0.5cm}
+
+        \small{Vous pouvez me contacter à : \href{mailto:votre.email@efrei.fr}{votre.email@efrei.fr}}
+    \end{center}
+\end{frame}
 
 \end{document}
