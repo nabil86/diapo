@@ -7,57 +7,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \documentclass[aspectratio=169]{beamer}
-\usepackage[scaled=0.9]{helvet}
-\usepackage{courier}
-\usepackage[T1]{fontenc}
-\usepackage{hyperref}
-\usepackage{latexsym,amsmath,xcolor,multicol,booktabs,calligra}
-\usepackage{graphicx,pstricks,listings,stackengine}
-
-
-\usepackage{inputenx} 
-\usetheme{Madrid}
-\usecolortheme{seahorse}
-
-\usepackage{tikz}
-% Configuration de TikZ pour la mise en évidence
-\tikzset{
-    highlight on/.style={
-        alt={#1{fill=red!80!black, color=red!80!black}{fill=gray!30!white, color=gray!30!white}},
-    },
-}
-
-\author{EL HASSANI Nabil}
-\title{Design pattern}
-\subtitle{Introduction aux design patterns}
-\institute{
-    Efrei \\
-    Université Paris Panthéon-Assas
-    }
-    \date{\small \today}
-\usepackage{UoWstyle}
-
-% defs
-\def\cmd#1{\texttt{\color{red}\footnotesize $\backslash$#1}}
-\def\env#1{\texttt{\color{blue}\footnotesize #1}}
-\definecolor{deepblue}{rgb}{0,0,0.5}
-\definecolor{deepred}{RGB}{153,0,0}
-\definecolor{deepgreen}{rgb}{0,0.5,0}
-\definecolor{halfgray}{gray}{0.55}
-
-\lstset{
-    basicstyle=\ttfamily\small,
-    keywordstyle=\bfseries\color{deepblue},
-    emphstyle=\ttfamily\color{deepred},    % Custom highlighting style
-    stringstyle=\color{deepgreen},
-    numbers=left,
-    numberstyle=\small\color{halfgray},
-    rulesepcolor=\color{red!20!green!20!blue!20},
-    frame=shadowbox,
-}
-
-%\setbeameroption{show notes on second screen=left}
-\titlegraphic{\includegraphics[height=1.5cm]{pic/efrei_logo.png}}
+\input{packages}
 %==========================================================
 \begin{document}
 %==========================================================

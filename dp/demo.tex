@@ -1,0 +1,682 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Based on THU beamer theme                          %
+% Author: EL HASSANI NABIL                           %
+% Date: September 2024                               % 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[aspectratio=169]{beamer}
+\input{packages}
+%==========================================================
+\begin{document}
+%==========================================================
+% Page de titre
+\begin{frame}
+    \titlepage
+\end{frame}
+
+% Plan de la présentation
+\begin{frame}
+    \frametitle{Plan de la Présentation}
+    \scriptsize
+    \tableofcontents[hideallsubsections]
+\end{frame}
+
+%==========================================================
+\section{Etude de cas}
+  \subsection{Strategy}
+  \begin{frame}
+    \textimg{0.6}{
+      \textbf{Contexte}: Prenant l'exemple d'une entreprise qui développe un jeu de simulation de mare de canards très populaire, \textit{SimUDuck}. 
+      Le jeu peut afficher une grande variété d'espèces de canards nageant et émettant des bruits de coin-coin. 
+      Les concepteurs initiaux du système ont utilisé des techniques standard de programmation orientée objet et ont créé une superclasse 
+      \textbf{Duck} dont tous les autres types de canards héritent.
+    }{pic/diagrams/duck_uml.drawio.png}
+      
+  \end{frame}
+  \begin{frame}
+      \textimg{0.6}{
+        \begin{itemize}
+          \item Le pattern Strategy permet de définir une famille d'algorithmes et de les rendre interchangeables.
+          \item Le comportement peut être changé dynamiquement sans modifier le code du client.
+        \end{itemize}
+      }{ pic/diagrams/strategy.png }
+  \end{frame}
+
+  \begin{frame}{Avantages du Pattern Strategy}
+    \begin{itemize}
+        \item \textbf{Séparation des comportements} : Permet de séparer les algorithmes du code principal en les encapsulant dans des classes distinctes.
+        \item \textbf{Facilité d'extension} : Il est facile d'ajouter de nouveaux algorithmes ou stratégies sans modifier les classes existantes.
+        \item \textbf{Respect du principe Open/Closed} : Les classes sont ouvertes à l'extension mais fermées à la modification, facilitant les évolutions du système.
+        \item \textbf{Élimine les conditions complexes} : Remplace les multiples conditions (\texttt{if} ou \texttt{switch}) par des stratégies configurables.
+        \item \textbf{Réutilisabilité} : Les stratégies peuvent être réutilisées dans différents contextes si elles sont bien conçues.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Inconvénients du Pattern Strategy}
+    \begin{itemize}
+        \item \textbf{Augmentation du nombre de classes} : Chaque stratégie est encapsulée dans sa propre classe, ce qui peut augmenter la complexité et le nombre de classes à gérer.
+        \item \textbf{Complexité de maintenance} : Si un grand nombre de stratégies sont ajoutées, il peut être difficile de maintenir et de comprendre le système.
+        \item \textbf{Problème de visibilité} : Les utilisateurs doivent savoir quelle stratégie utiliser et comment les configurer, ce qui peut rendre l'API plus complexe à utiliser.
+        \item \textbf{Délégation de logique} : Le contexte doit souvent déléguer les appels à la stratégie appropriée, ce qui peut entraîner un couplage indirect.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}
+    \frametitle{Conclusion}
+    \begin{itemize}
+        \item Le pattern Strategy favorise la flexibilité et permet de changer l'algorithme utilisé sans modifier la logique du contexte.
+        \item Il encourage également l'adhésion au principe Open/Closed (OCP) du SOLID.
+    \end{itemize}
+  \end{frame}
+
+  \subsection{Observer}
+  \begin{frame}{Description de l'application Weather-O-Rama}
+    \textbf{Contexte} :
+    \begin{itemize}
+        \item \textbf{Weather-O-Rama} est une application de suivi et d'affichage des conditions météorologiques.
+        \item Elle collecte des données telles que la température, l'humidité, et la pression atmosphérique.
+        \item Ces informations sont affichées sur différents panneaux.
+    \end{itemize}
+    
+    \textbf{Composants} :
+    \begin{itemize}
+        \item \textbf{Station Météo} : Collecte des données climatiques (température, humidité, pression) en temps réel.
+        \item \textbf{Affichages} :
+        \begin{itemize}
+            \item \textbf{Conditions actuelles} : Température et humidité actuelles.
+            \item \textbf{Prévisions} : Tendances météorologiques futures basées sur la pression atmosphérique.
+            \item \textbf{Statistiques} : Moyennes historiques des données climatiques.
+        \end{itemize}
+    \end{itemize}
+    
+    \textbf{Mécanisme de mise à jour} :
+    \begin{itemize}
+        \item Les affichages reçoivent automatiquement les mises à jour de la station météo.
+        \item Chaque nouvelle donnée est envoyée aux panneaux d'affichage.
+    \end{itemize}
+    
+    \textbf{Résultat} :
+    \begin{itemize}
+        \item Les utilisateurs peuvent surveiller les conditions en temps réel sur différents panneaux.
+        \item Chaque panneau affiche des informations spécifiques pour une vue complète du climat.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Définition du pattern Observer}
+    \only<1>{
+      \begin{itemize}
+        \item Le \textbf{pattern Observer} est un \textbf{design pattern comportemental}.
+        \item Il définit une relation de dépendance entre objets où un objet, appelé \textbf{Sujet (Subject)}, notifie automatiquement plusieurs *\textbf{Observateurs (Observers)} de ses changements d'état.
+        \item Ce pattern permet de gérer des notifications automatiques de manière efficace sans couplage fort entre les objets.
+    \end{itemize}
+    }
+    \only<2>{
+    \textimg{0.6}{
+        \textbf{Le pattern Observer comprend trois composants clés} :
+        \begin{itemize}
+            \item \textbf{Sujet (Subject)} :
+            \begin{itemize}
+                \item Maintient une liste d'observateurs.
+                \item Notifie les observateurs en cas de changement d'état.
+            \end{itemize}
+            \item \textbf{Observateurs (Observers)} :
+            \begin{itemize}
+                \item S'enregistrent auprès du sujet pour recevoir les mises à jour.
+                \item Réagissent aux changements du sujet.
+            \end{itemize}
+            \item \textbf{Notifications} :
+            \begin{itemize}
+                \item Le sujet notifie tous les observateurs lorsqu'il y a un changement.
+                \item Les observateurs mettent à jour leur état en conséquence.
+            \end{itemize}
+         \end{itemize}
+      }{pic/diagrams/observer.png}
+    }
+  \end{frame}
+  \begin{frame}{Avantages du pattern Observer}
+    \begin{itemize}
+        \item \textbf{Découplage faible} : Le sujet ne dépend pas des détails des observateurs, ce qui réduit le couplage.
+        \item \textbf{Extensibilité} : Ajouter de nouveaux observateurs est facile et n'affecte pas le sujet.
+        \item \textbf{Notification automatique} : Les observateurs sont automatiquement informés des changements d'état.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Inconvénients du pattern Observer}
+    \begin{itemize}
+        \item \textbf{Cascade de mises à jour} : Si le nombre d'observateurs est élevé, les notifications peuvent devenir inefficaces.
+        \item \textbf{Ordre de notification} : Les observateurs sont généralement notifiés sans ordre spécifique, ce qui peut poser des problèmes dans certains cas.
+    \end{itemize}
+  \end{frame}
+
+  \subsection{Decorator}
+  \begin{frame}{Contexte de Starbuzz Coffee}
+        \textbf{Contexte :} 
+        \par En pleine expansion, Starbuzz Coffee fait face à de nouveaux défis. Leur succès fulgurant, accompagné de l'ouverture massive de nouvelles enseignes, 
+        les oblige à revoir leurs infrastructures internes. En particulier, leurs systèmes de commande peinent à suivre l’évolution de leur offre de boissons, 
+        qui s’est considérablement diversifiée au fil du temps. Lorsqu'ils ont débuté, ils avaient conçu leurs classes de manière simple, mais cette approche montre aujourd’hui ses limites.
+  \end{frame}
+
+  \begin{frame}{Défi de la gestion des options}
+    \begin{itemize}
+        \item Chaque boisson (café, thé, etc.) peut être personnalisée avec plusieurs ajouts (lait, mousse, chocolat, etc.).
+        \item Si chaque combinaison possible de boisson et d'ajout était modélisée par une sous-classe, le système deviendrait rapidement ingérable.
+        \item Comment permettre la personnalisation des boissons de manière flexible sans avoir à créer une classe pour chaque combinaison ?
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Description du Pattern Decorator}
+    \textimg{0.7}{
+      \begin{itemize}
+          \item Le \textbf{pattern Decorator} est un design pattern \textbf{structurel} qui permet d'ajouter dynamiquement des fonctionnalités à un objet sans modifier son code d'origine.
+          \item Il encapsule les comportements dans des objets séparés appelés \textbf{décorateurs}, qui enrichissent un objet de base.
+          \item Ce pattern suit le principe de composition \textbf{plutôt que} l'héritage pour étendre les fonctionnalités d'un objet.
+          \item Chaque décorateur \textbf{enveloppe} l'objet de base et peut ajouter de nouveaux comportements ou modifier ceux existants.
+          \item Les objets décorateurs et l'objet décoré partagent la même interface, ce qui permet de les utiliser de manière interchangeable.
+      \end{itemize}
+    }{pic/diagrams/decorator.png}
+  \end{frame}
+
+  \begin{frame}{Inconvénients du Pattern Decorator}
+    \begin{itemize}
+        \item \textbf{Complexité accrue} : L'utilisation excessive de décorateurs peut rendre la conception plus complexe et difficile à comprendre, surtout si de nombreux décorateurs sont empilés.
+        \item \textbf{Nombre élevé de petites classes} : Chaque fonctionnalité ajoutée nécessite une nouvelle classe, ce qui peut entraîner une prolifération de petites classes dans le système.
+        \item \textbf{Difficulté de débogage} : Avec plusieurs décorateurs imbriqués, il peut être difficile de suivre le flux des appels et de comprendre où une fonctionnalité spécifique est ajoutée ou modifiée.
+        \item \textbf{Couplage indirect} : Les décorateurs ajoutent souvent des couches supplémentaires entre le client et l'objet réel, ce qui peut introduire un couplage indirect entre ces composants.
+    \end{itemize}
+  \end{frame}
+
+  \subsection{Factory}
+  \begin{frame}{Contexte de PizzaStore}
+      \textbf{Contexte :} 
+        Le but est de modéliser une chaîne de pizzerias où chaque franchise peut avoir ses propres types de pizzas (New York Style, Chicago Style, etc.).
+  \end{frame}
+    
+  \begin{frame}{Description du Pattern Factory}
+    \textimg{0.7}{
+      \begin{itemize}
+          \item Le \textbf{pattern Factory} est un \textbf{design pattern créationnel} qui fournit une interface pour créer des objets sans exposer la logique de création au client.
+          \item Il permet aux sous-classes de définir quelle instance concrète doit être créée, laissant ainsi la responsabilité de l'instanciation aux sous-classes.
+          \item Le pattern encapsule la logique d'instanciation dans une méthode spécialisée appelée \textbf{méthode fabrique}.
+          \item Cela permet de rendre le code plus flexible et modulaire tout en facilitant l'extension du système.
+      \end{itemize}
+    }{pic/diagrams/factory-method.png}
+  \end{frame}
+
+  \begin{frame}{Avantages du Pattern Factory}
+    \begin{itemize}
+        \item \textbf{Encapsulation de la logique de création} : La méthode fabrique centralise la création des objets, ce qui rend le code client plus simple.
+        \item \textbf{Respect du principe Open/Closed} : Le pattern permet d'ajouter de nouvelles sous-classes ou types de produits sans modifier le code existant.
+        \item \textbf{Réduction du couplage} : Le client n'a pas besoin de connaître les classes concrètes utilisées, ce qui réduit le couplage entre les composants.
+        \item \textbf{Flexibilité} : Idéal pour les systèmes nécessitant l'instanciation de produits complexes ou dépendant de plusieurs facteurs.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Inconvénients du Pattern Factory}
+    \begin{itemize}
+        \item \textbf{Complexité accrue} : Introduire des fabriques et des sous-classes peut augmenter la complexité du système.
+        \item \textbf{Prolifération des classes} : Chaque nouveau produit ou sous-classe entraîne la création de nouvelles classes, ce qui peut alourdir le code.
+        \item \textbf{Dépendance indirecte} : Bien que le couplage direct soit réduit, des modifications dans les sous-classes ou les produits peuvent nécessiter des changements dans la fabrique.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Description du Pattern Abstract Factory}
+    \textimg{0.7}{
+      \begin{itemize}
+          \item Le \textbf{pattern Abstract Factory} est un \textbf{design pattern créationnel} qui permet de créer des familles d'objets liés sans spécifier leur classe concrète.
+          \item Il fournit une interface pour créer des objets liés ou dépendants dans une famille, tout en déléguant l'instanciation à des sous-classes concrètes.
+          \item L'objectif est de garantir que les objets créés appartiennent à la même famille et sont compatibles entre eux.
+          \item Ce pattern est utile lorsque le système doit travailler avec des objets liés, mais où le type exact des objets est déterminé dynamiquement au moment de l'exécution.
+      \end{itemize}
+    }{pic/diagrams/abstract-factory.png}
+  \end{frame}
+
+  \begin{frame}{Avantages du Pattern Abstract Factory}
+    \begin{itemize}
+        \item \textbf{Encapsulation des familles d'objets} : Fournit une interface pour créer des objets d'une même famille sans exposer leur instanciation.
+        \item \textbf{Cohérence des produits} : Garantit que tous les objets créés dans une famille sont compatibles entre eux.
+        \item \textbf{Respect du principe Open/Closed} : Permet d'ajouter de nouvelles familles de produits sans modifier le code existant.
+        \item \textbf{Flexibilité} : Le pattern facilite le changement de famille de produits, car il suffit de changer la fabrique abstraite.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Inconvénients du Pattern Abstract Factory}
+    \begin{itemize}
+        \item \textbf{Complexité accrue} : Introduire des fabriques abstraites et des familles de produits peut augmenter la complexité globale du système.
+        \item \textbf{Prolifération des classes} : Chaque nouvelle famille de produits et chaque produit au sein de cette famille nécessitent la création de nouvelles classes.
+        \item \textbf{Difficulté d'extension des produits individuels} : Si vous devez ajouter un nouveau produit dans une famille existante, il peut être difficile d'étendre uniquement cette partie sans toucher à d'autres aspects.
+    \end{itemize}
+  \end{frame}
+
+  \subsubsection{Différence avec Factory Method}
+
+  \begin{frame}{Différence entre Abstract Factory et Factory Method}
+    \begin{itemize}
+        \item \textbf{Factory Method} :
+        \begin{itemize}
+            \item La Factory Method permet aux sous-classes de décider quel objet concret instancier.
+            \item Il encapsule la logique d'instanciation dans une seule méthode spécifique et se concentre sur la création d'un seul produit à la fois.
+        \end{itemize}
+        \item \textbf{Abstract Factory} :
+        \begin{itemize}
+            \item L'Abstract Factory fournit une interface pour créer des familles d'objets reliés, souvent plusieurs produits en même temps.
+            \item Le but est de garantir que tous les produits créés par une fabrique appartiennent à la même famille et sont compatibles entre eux.
+        \end{itemize}
+        \item \textbf{Différence clé} :
+        \begin{itemize}
+            \item Le pattern \textbf{Factory Method} est centré sur l'instanciation d'un objet unique, tandis que l'\textbf{Abstract Factory} crée des familles d'objets qui fonctionnent ensemble.
+        \end{itemize}
+    \end{itemize}
+  \end{frame}
+
+  \subsection{Singleton}
+  \begin{frame}{Description du Pattern Singleton}
+    \textimg{0.7}{
+      \begin{itemize}
+          \item Le \textbf{pattern Singleton} est un \textbf{design pattern créationnel} qui garantit qu'une classe n'a qu'une seule instance dans tout le programme.
+          \item Il fournit un \textbf{point d'accès global} à cette instance unique.
+          \item Le Singleton est souvent utilisé pour contrôler l'accès à des ressources partagées ou pour centraliser des services tels que des connexions à une base de données ou des fichiers de configuration.
+      \end{itemize}
+        
+      }{pic/diagrams/singleton.png}
+  \end{frame}
+
+  \begin{frame}{Avantages du Pattern Singleton}
+      \begin{itemize}
+          \item \textbf{Contrôle de l'accès à une instance unique} : Assure qu'une seule instance est créée, centralisant l'accès aux ressources partagées.
+          \item \textbf{Réduction de l'utilisation de la mémoire} : Une seule instance est créée, ce qui économise des ressources.
+          \item \textbf{Facilité d'accès} : Un point d'accès global rend l'utilisation du Singleton simple dans tout le programme.
+          \item \textbf{Contrôle centralisé} : Les modifications à l'instance unique sont disponibles pour tous les composants du système.
+      \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Inconvénients du Pattern Singleton}
+      \begin{itemize}
+          \item \textbf{Difficulté de test unitaire} : Difficile à tester à cause de la dépendance à l'instance globale.
+          \item \textbf{Couplage global} : Introduit un couplage caché entre les différentes parties du programme, ce qui peut compliquer la maintenance.
+          \item \textbf{Problèmes en multithreading} : Peut entraîner la création de plusieurs instances en environnement multithread sans synchronisation adéquate.
+          \item \textbf{Difficulté d'évolution} : Si plusieurs instances sont requises à l'avenir, le code pourrait être difficile à adapter.
+      \end{itemize}
+  \end{frame}
+
+  \subsection{Command}
+  \begin{frame}
+    \textbf{Contexte: }
+    \par Imagine une télécommande universelle (le Remote Control). Cette télécommande peut être utilisée pour contrôler plusieurs appareils différents, 
+    comme une lumière, un ventilateur, ou une télévision. Chaque appareil a des actions spécifiques (comme "allumer" et "éteindre"), 
+    mais la télécommande ne sait pas comment chaque appareil fonctionne en interne. Elle se contente de déclencher des commandes associées aux boutons.
+  \end{frame}
+  \begin{frame}
+    \only<1>{
+    \textbf{Éléments clés du Command Pattern}
+      Le \textbf{Command Pattern} est un patron de conception comportemental qui encapsule une requête en tant qu'objet. Cela permet de :
+      \begin{itemize}
+          \item Découpler l'émetteur d'une requête de son récepteur.
+          \item Stocker, enregistrer et gérer les requêtes comme des objets indépendants.
+      \end{itemize}
+    }
+    \only<2>{
+      \textimg{0.6}{
+        \begin{itemize}
+          \item \textbf{Commande (Command)} : Interface définissant une méthode \texttt{execute()} pour exécuter la commande, avec option de \texttt{undo()}.
+          \item \textbf{Commandes concrètes (Concrete Command)} : Implémentations spécifiques des commandes.
+          \item \textbf{Récepteur (Receiver)} : L'objet sur lequel la commande agit.
+          \item \textbf{Invocateur (Invoker)} : Celui qui déclenche la commande (ex: télécommande).
+          \item \textbf{Client} : Crée les commandes et les configure avec les récepteurs.
+        \end{itemize}
+      }{pic/diagrams/command.png}
+    }
+  \end{frame}
+
+  \begin{frame}{Avantages du Command Pattern}
+    \begin{itemize}
+        \item \textbf{Découplage} : Sépare l'émetteur (invocateur) et le récepteur (appareil).
+        \item \textbf{Extensibilité} : Facile d'ajouter de nouvelles commandes sans modifier le code existant.
+        \item \textbf{Support Undo/Redo} : Permet d'implémenter facilement des actions annulables.
+        \item \textbf{Macro-Commandes} : Permet de composer des séquences d'actions complexes.
+        \item \textbf{Enregistrement} : Possibilité d'enregistrer et de rejouer des commandes.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Inconvénients du Command Pattern}
+    \begin{itemize}
+        \item \textbf{Complexité accrue} : Introduction d'un grand nombre de classes, surtout si les commandes sont nombreuses.
+        \item \textbf{Surcharge de code} : Pour chaque nouvelle action, une nouvelle commande doit être créée.
+        \item \textbf{Complexité des annulations} : Gérer l'annulation d'une commande peut devenir difficile si les opérations sont complexes.
+        \item \textbf{Usage non nécessaire} : Dans des scénarios simples, cela peut ajouter de la complexité inutilement.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Quand utiliser le Command Pattern ?}
+    \begin{itemize}
+        \item Lorsque vous avez besoin de \textbf{découpler} l'émission de la requête de son exécution.
+        \item Si vous avez besoin de \textbf{fonctionnalités Undo/Redo}.
+        \item Si vous devez \textbf{mettre en file d'attente} des commandes pour une exécution ultérieure.
+        \item Lorsque vous voulez créer des \textbf{séquences complexes} d'actions.
+    \end{itemize}
+    \pause
+    Toutefois, si le système est simple ou n'a pas besoin de cette flexibilité, le Command Pattern peut ajouter une complexité inutile.
+  \end{frame}
+
+  \subsection{Adapter}
+  \begin{frame}{Pattern Adapter}
+    \only<1>{
+      Le \textbf{Pattern Adapter} est un patron de conception structurel qui permet de rendre deux interfaces incompatibles compatibles. 
+      Il agit comme un pont entre une classe existante et une nouvelle interface.
+      \begin{itemize}
+          \item Utilisé pour réutiliser du code existant avec une interface différente.
+          \item Permet l'interopérabilité avec des bibliothèques externes ayant des interfaces incompatibles.
+      \end{itemize}
+    }
+    \only<2>{
+      \textimg{0.6}{
+        \textbf{{Éléments clés du Pattern Adapter}}
+        \begin{itemize}
+            \item \textbf{Client} : Utilise l'interface cible.
+            \item \textbf{Target Interface} : L'interface attendue par le client.
+            \item \textbf{Adaptee} : L'ancienne classe que l'on souhaite adapter.
+            \item \textbf{Adapter} : Traduit l'interface de l'Adaptee pour qu'elle soit compatible avec la Target Interface.
+        \end{itemize}
+      }{pic/diagrams/adapter.png}
+    }
+  \end{frame}
+
+  \begin{frame}{Avantages du Pattern Adapter}
+    \begin{itemize}
+        \item \textbf{Réutilisation du code} : Utilise des classes existantes avec des interfaces différentes.
+        \item \textbf{Découplage} : Sépare les interfaces tout en permettant leur compatibilité.
+        \item \textbf{Flexibilité} : Permet d'intégrer des API ou bibliothèques externes sans modification.
+    \end{itemize}
+  \end{frame}
+
+
+  \begin{frame}{Inconvénients du Pattern Adapter}
+    \begin{itemize}
+        \item \textbf{Complexité supplémentaire} : Introduction d'une nouvelle couche de code.
+        \item \textbf{Multiplication des classes} : Augmente le nombre de classes à maintenir.
+    \end{itemize}
+  \end{frame}
+
+  % Slide 6: Quand utiliser le Pattern Adapter ?
+  \begin{frame}{Quand utiliser le Pattern Adapter ?}
+    \begin{itemize}
+        \item Lorsqu'il est nécessaire de rendre des classes existantes compatibles avec une interface différente.
+        \item Lorsque des bibliothèques ou des API externes ont une interface incompatible avec votre système.
+    \end{itemize}
+  \end{frame}
+
+  \
+
+  \subsection{Façade}
+  \begin{frame}{Pattern Façade}
+    Le \textbf{Pattern Façade} est un patron de conception structurel qui fournit une interface simplifiée pour interagir avec un ou plusieurs sous-systèmes complexes. 
+    \begin{itemize}
+        \item Masque la complexité interne d'un système.
+        \item Fournit un point d'entrée unique pour accéder aux sous-systèmes.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Éléments clés du Pattern Façade}
+    \textimg{0.6}{
+      \begin{itemize}
+          \item \textbf{Façade} : Classe offrant une interface simplifiée pour interagir avec les sous-systèmes.
+          \item \textbf{Sous-systèmes} : Les composants ou modules qui réalisent les actions réelles.
+          \item \textbf{Client} : Utilise la façade pour accéder aux fonctionnalités des sous-systèmes sans connaître leur complexité.
+      \end{itemize}
+    }{pic/diagrams/facade.png}
+  \end{frame}
+
+  \begin{frame}{Avantages du Pattern Façade}
+    \begin{itemize}
+        \item \textbf{Simplification} : Cache la complexité des sous-systèmes, fournissant une interface simple.
+        \item \textbf{Découplage} : Sépare le client des sous-systèmes internes, rendant le système plus flexible.
+        \item \textbf{Code plus lisible} : Réduit les appels multiples, simplifiant le code client.
+        \item \textbf{Facilité d'intégration} : La façade absorbe les changements des sous-systèmes, sans affecter les utilisateurs.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Inconvénients du Pattern Façade}
+    \begin{itemize}
+        \item \textbf{Masquage des fonctionnalités avancées} : Certaines fonctionnalités des sous-systèmes peuvent être inaccessibles via la façade.
+        \item \textbf{Responsabilité accrue} : La façade peut devenir trop volumineuse si elle gère trop de logique interne.
+        \item \textbf{Complexité cachée} : La façade masque la complexité sous-jacente, ce qui peut poser problème en cas de débogage.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Quand utiliser le Pattern Façade ?}
+    \begin{itemize}
+        \item Lorsque le système est complexe et que l'on souhaite fournir une interface simplifiée.
+        \item Pour réduire le couplage entre les sous-systèmes et le client.
+        \item Pour intégrer facilement une bibliothèque ou un ensemble d'API complexes en exposant une interface plus intuitive.
+    \end{itemize}
+  \end{frame}
+
+  \subsection{Template method}
+  \begin{frame}{Pattern Template Method}
+    Le \textbf{Template Method Pattern} est un patron de conception comportemental qui permet de définir la structure d'un algorithme dans une méthode 
+    tout en laissant certaines étapes spécifiques aux sous-classes.
+    
+    \begin{itemize}
+        \item La classe parent définit le squelette de l'algorithme.
+        \item Les sous-classes peuvent redéfinir certaines étapes sans modifier l'algorithme global.
+    \end{itemize}
+  \end{frame}
+
+
+  \begin{frame}{Structure du Template Method}
+    \textimg{0.6}{
+      \begin{itemize}
+          \item \textbf{Classe abstraite} : Définit la méthode template et certaines étapes par défaut.
+          \item \textbf{Méthode Template} : La méthode qui définit l'ordre des étapes de l'algorithme.
+          \item \textbf{Sous-classes} : Implémentent ou redéfinissent certaines étapes spécifiques.
+      \end{itemize}
+    }{pic/diagrams/template-method.png}
+  \end{frame}
+
+
+  \begin{frame}{Avantages du Template Method Pattern}
+    \begin{itemize}
+        \item \textbf{Réutilisation du code} : Le squelette de l'algorithme est défini une seule fois dans la classe parent.
+        \item \textbf{Contrôle centralisé} : L'algorithme est défini au même endroit, ce qui facilite la maintenance.
+        \item \textbf{Personnalisation} : Les sous-classes peuvent modifier certaines étapes sans changer la structure globale.
+        \item \textbf{Inversion de contrôle} : Les sous-classes décident de certains détails, tandis que l'ordre global est géré par la classe parent.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Inconvénients du Template Method Pattern}
+    \begin{itemize}
+        \item \textbf{Rigidité} : L'algorithme global est figé dans la classe parent, limitant la flexibilité des sous-classes.
+        \item \textbf{Dépendance} : Les sous-classes sont fortement couplées à la structure de la classe parent.
+        \item \textbf{Difficulté à comprendre} : La combinaison de la méthode template et des méthodes redéfinies peut rendre la structure plus difficile à suivre.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Quand utiliser le Template Method Pattern ?}
+    \begin{itemize}
+        \item Lorsque plusieurs classes partagent un algorithme commun, mais que certaines étapes doivent être personnalisées.
+        \item Lorsque vous souhaitez centraliser et réutiliser une structure commune tout en permettant des variations dans les détails.
+        \item Pour éviter la duplication de code dans les sous-classes qui partagent la même structure générale.
+    \end{itemize}
+  \end{frame}
+
+  \subsection{iterator}
+  \begin{frame}{Pattern Iterator}
+    Le \textbf{Pattern Iterator} est un patron de conception comportemental qui permet de parcourir les éléments d'une collection sans exposer sa structure interne.
+    
+    \begin{itemize}
+        \item Fournit une interface uniforme pour accéder aux éléments.
+        \item Permet d'itérer sur différentes collections de manière indépendante de leur implémentation.
+    \end{itemize}
+  \end{frame}
+
+  % Slide 2: Structure du Pattern Iterator
+  \begin{frame}{Structure du Pattern Iterator}
+    \textimg{0.6}{
+      \begin{itemize}
+          \item \textbf{Itérateur (Iterator)} : Définit les méthodes pour parcourir les éléments (e.g. \texttt{hasNext()}, \texttt{next()}).
+          \item \textbf{Collection (Aggregate)} : Fournit une méthode pour obtenir un itérateur.
+          \item \textbf{Itérateur concret (Concrete Iterator)} : Implémente l'interface Iterator pour une collection spécifique.
+          \item \textbf{Collection concrète (Concrete Aggregate)} : Implémente la structure des données et renvoie l'itérateur correspondant.
+      \end{itemize}
+    }{pic/diagrams/iterator.png}
+  \end{frame}
+
+
+  \begin{frame}{Avantages du Pattern Iterator}
+    \begin{itemize}
+        \item \textbf{Encapsulation} : Masque la structure interne des collections.
+        \item \textbf{Uniformité} : Offre une interface uniforme pour parcourir différentes collections.
+        \item \textbf{Séparation des préoccupations} : La logique de parcours est déplacée dans un itérateur, pas dans la collection elle-même.
+        \item \textbf{Simplification} : Rend le code client plus simple et plus propre, en le séparant des détails de parcours.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Inconvénients du Pattern Iterator}
+    \begin{itemize}
+        \item \textbf{Complexité supplémentaire} : Introduit une couche supplémentaire, surtout pour des collections simples.
+        \item \textbf{Accès unidirectionnel} : La plupart des itérateurs ne permettent qu'un parcours dans un seul sens.
+        \item \textbf{Multiplication des classes} : Chaque collection nécessite souvent son propre itérateur concret.
+        \item \textbf{Performance} : Peut avoir une légère surcharge par rapport à l'accès direct à la collection.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Quand utiliser le Pattern Iterator ?}
+    \begin{itemize}
+        \item Lorsque vous devez parcourir une collection sans exposer sa structure interne.
+        \item Lorsque vous avez différentes collections (listes, tableaux, ensembles) que vous souhaitez traiter de manière uniforme.
+        \item Pour simplifier le code client et séparer les responsabilités.
+        \item Si vous voulez éviter de dupliquer la logique de parcours dans chaque classe client.
+    \end{itemize}
+  \end{frame}
+
+  \subsection{State}
+  \begin{frame}{Pattern State}
+    \only<1>{
+      Le \textbf{Pattern State} est un patron de conception comportemental qui permet à un objet de changer son comportement lorsque son état interne change.
+      \begin{itemize}
+          \item Encapsule chaque état dans une classe distincte.
+          \item Permet de changer dynamiquement de comportement sans modifier le code client.
+      \end{itemize}
+    }
+    \only<2>{
+      \textimg{0.6}{
+        \begin{itemize}
+            \item \textbf{Contexte (Context)} : L'objet principal qui contient une référence à son état actuel.
+            \item \textbf{État (State)} : Interface ou classe abstraite déclarant des méthodes spécifiques à chaque état.
+            \item \textbf{États concrets (Concrete State)} : Classes qui implémentent l'interface `State` et définissent le comportement pour chaque état.
+        \end{itemize}
+      }{pic/diagrams/state.png}
+    }
+  \end{frame}
+
+  \begin{frame}{Avantages du Pattern State}
+    \begin{itemize}
+        \item \textbf{Élimination des structures conditionnelles} : Pas besoin de longs `if` ou `switch`.
+        \item \textbf{Responsabilité unique} : Chaque état a sa propre classe, responsable de son comportement.
+        \item \textbf{Extension facile} : Ajouter de nouveaux états est simple et ne nécessite pas de modification du code existant.
+        \item \textbf{Changement dynamique d'état} : Le comportement peut être modifié à la volée sans affecter le client.
+    \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Inconvénients du Pattern State}
+    \begin{itemize}
+        \item \textbf{Multiplication des classes} : Crée plusieurs classes pour chaque état, ce qui peut devenir complexe.
+        \item \textbf{Changement d'état implicite} : Peut être difficile à suivre si les transitions ne sont pas bien documentées.
+        \item \textbf{Complexité pour systèmes simples} : Peut ajouter de la complexité inutile dans des systèmes simples.
+    \end{itemize}
+  \end{frame}
+
+
+  \begin{frame}{Quand utiliser le Pattern State ?}
+    \begin{itemize}
+        \item Lorsque le comportement d'un objet dépend de son état interne.
+        \item Lorsque vous voulez éviter des structures conditionnelles complexes pour gérer les états.
+        \item Si vous avez plusieurs états avec des comportements distincts et souhaitez encapsuler ces comportements.
+    \end{itemize}
+  \end{frame}
+
+  \section{Principes de Conception (SOLID)}
+
+  \begin{frame}{Programmer pour une interface plutôt que pour une implémentation}
+  \begin{itemize}
+      \item Coder contre des abstractions (interfaces ou classes abstraites) pour rendre le code plus flexible.
+      \item Exemple : Utiliser une interface \texttt{Animal} plutôt que directement \texttt{Chien} ou \texttt{Chat}.
+  \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Favoriser la composition sur l'héritage}
+  \begin{itemize}
+      \item Utiliser la composition pour combiner des objets plutôt que l'héritage pour réutiliser du code.
+      \item Exemple : Une classe \texttt{Voiture} peut avoir un objet \texttt{Moteur} au lieu d'hériter d'une classe \texttt{Moteur}.
+  \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Principe Ouvert/Fermé (Open/Closed Principle - OCP)}
+  \begin{itemize}
+      \item Les classes doivent être ouvertes à l'extension mais fermées à la modification.
+      \item Exemple : Ajouter de nouveaux types de paiements via une interface \texttt{ModePaiement} sans changer la classe principale.
+  \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Responsabilité Unique (Single Responsibility Principle - SRP)}
+  \begin{itemize}
+      \item Une classe doit avoir une seule responsabilité, donc une seule raison de changer.
+      \item Exemple : Séparer la facturation et l'envoi d'e-mails dans deux classes distinctes.
+  \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Substitution de Liskov (Liskov Substitution Principle - LSP)}
+  \begin{itemize}
+      \item Les sous-classes doivent pouvoir remplacer les super-classes sans modifier le comportement du programme.
+      \item Exemple : Si \texttt{Oiseau} a une méthode \texttt{voler()}, \texttt{Pingouin} ne doit pas hériter directement de \texttt{Oiseau} s'il ne vole pas.
+  \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Ségrégation des Interfaces (Interface Segregation Principle - ISP)}
+  \begin{itemize}
+      \item Mieux vaut plusieurs interfaces spécifiques qu'une seule interface générale.
+      \item Exemple : Avoir des interfaces comme \texttt{Volant}, \texttt{Nageant}, plutôt qu'une unique interface \texttt{Animal}.
+  \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Inversion des Dépendances (Dependency Inversion Principle - DIP)}
+  \begin{itemize}
+      \item Les modules de haut niveau ne doivent pas dépendre des modules de bas niveau. Tous deux doivent dépendre d'abstractions.
+      \item Exemple : \texttt{GestionUtilisateur} doit dépendre de \texttt{ServiceNotification}, pas de \texttt{ServiceEmail}.
+  \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Encapsuler ce qui varie}
+  \begin{itemize}
+      \item Identifier et isoler les parties du code qui changent fréquemment pour minimiser l'impact des changements.
+      \item Exemple : Encapsuler les comportements comme \texttt{marcher} ou \texttt{attaquer} dans des classes séparées dans un jeu vidéo.
+  \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Favoriser le couplage faible}
+  \begin{itemize}
+      \item Réduire les dépendances directes entre objets pour une meilleure modularité et indépendance.
+      \item Exemple : Utiliser des événements ou des interfaces pour éviter les relations directes entre objets.
+  \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Parler uniquement avec vos amis (Law of Demeter)}
+  \begin{itemize}
+      \item Limiter les interactions directes d'un objet uniquement aux objets avec lesquels il est directement en relation.
+      \item Exemple : Une classe \texttt{Commande} ne devrait interagir qu'avec \texttt{Client}, pas avec \texttt{Adresse}.
+  \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Dépendre d'une abstraction, pas d'une implémentation}
+  \begin{itemize}
+      \item Toujours dépendre d'abstractions (interfaces ou classes abstraites) et non d'implémentations concrètes.
+      \item Exemple : \texttt{PaiementService} devrait dépendre de \texttt{Transaction} et non de \texttt{TransactionBancaire}.
+  \end{itemize}
+  \end{frame}
+
+  \begin{frame}{Don't call us, we'll call you (Inversion de contrôle)}
+  \begin{itemize}
+      \item Les objets doivent attendre qu'un système plus haut niveau les appelle, plutôt que d'initier eux-mêmes des actions.
+      \item Exemple : Les événements dans une interface utilisateur : le système appelle l'action en réponse à un événement.
+  \end{itemize}
+  \end{frame}
+
+\end{document}
