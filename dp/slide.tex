@@ -8,7 +8,6 @@
 \documentclass[aspectratio=169]{beamer}
 \input{packages}
 
-
 %==========================================================
 \begin{document}
 %==========================================================
@@ -23,7 +22,6 @@
     \scriptsize
     \tableofcontents[hideallsubsections]
 \end{frame}
-
 %==========================================================
 \section{Introduction}
     \subsection{Objectifs du Cours}
@@ -139,41 +137,27 @@
 \end{frame}
 
 \subsection{Facilitation de la maintenabilité et de l'évolution du code}
-\begin{frame}{Facilitation de la maintenabilité et de l'évolution du code}
-    \begin{columns}
-        \begin{column}{0.6\textwidth}
+    \begin{frame}{Facilitation de la maintenabilité et de l'évolution du code}
+        \textimg{0.6}{
             \begin{itemize}
                 \item \textbf{Code modulaire} et \textbf{flexible}.
                 \item \textbf{Facilité} d'ajout de nouvelles fonctionnalités.
-                      \pause
+                    \pause
                 \item \textbf{Exemple} : Le \textbf{Decorator} pour ajouter des responsabilités dynamiquement.
             \end{itemize}
-        \end{column}
-        \begin{column}{0.4\textwidth}
-            \begin{center}
-                \includegraphics[width=1.0\textwidth]{pic/decorator_pattern.png}
-            \end{center}
-        \end{column}
-    \end{columns}
-\end{frame}
+        }{pic/decorator_pattern.png}
+    \end{frame}
 \subsection{Renforcement de la flexibilité et de la modularité}
 
 \begin{frame}{Renforcement de la flexibilité et de la modularité}
-    \begin{columns}
-        \begin{column}{0.6\textwidth}
-            \begin{itemize}
-                \item \textbf{Séparation des préoccupations}.
-                \item \textbf{Interopérabilité} entre les composants.
-                      \pause
-                \item \textbf{Exemple} : Le \textbf{Adapter} pour faire collaborer des interfaces incompatibles.
-            \end{itemize}
-        \end{column}
-        \begin{column}{0.4\textwidth}
-            \begin{center}
-                \includegraphics[width=0.8\textwidth]{pic/adapter_pattern.png}
-            \end{center}
-        \end{column}
-    \end{columns}
+    \textimg{0.6}{
+        \begin{itemize}
+            \item \textbf{Séparation des préoccupations}.
+            \item \textbf{Interopérabilité} entre les composants.
+                  \pause
+            \item \textbf{Exemple} : Le \textbf{Adapter} pour faire collaborer des interfaces incompatibles.
+        \end{itemize}
+    }{pic/adapter_pattern.png}
 \end{frame}
 
 %==========================================================
@@ -243,22 +227,14 @@
 \subsection{Principes de la Programmation Orientée Objet}
 
 \begin{frame}{Principes de la Programmation Orientée Objet}
-    \begin{columns}
-        \begin{column}{0.6\textwidth}
-            \begin{itemize}
-                \item \textbf{Encapsulation} : Regrouper les données et les méthodes.
-                \item \textbf{Abstraction} : Cacher la complexité et ne montrer que l'essentiel.
-                \item \textbf{Héritage} : Réutiliser le code en créant des sous-classes.
-                \item \textbf{Polymorphisme} : Utiliser une interface commune pour des actions différentes.
-            \end{itemize}
-        \end{column}
-        \begin{column}{0.4\textwidth}
-            \pause
-            \begin{center}
-                \includegraphics[width=0.6\textwidth]{pic/poo_principles.png}
-            \end{center}
-        \end{column}
-    \end{columns}
+    \textimg{0.6}{
+        \begin{itemize}
+            \item \textbf{Encapsulation} : Regrouper les données et les méthodes.
+            \item \textbf{Abstraction} : Cacher la complexité et ne montrer que l'essentiel.
+            \item \textbf{Héritage} : Réutiliser le code en créant des sous-classes.
+            \item \textbf{Polymorphisme} : Utiliser une interface commune pour des actions différentes.
+        \end{itemize}
+    }{pic/poo_principles.png}
 \end{frame}
 
 \subsection{Héritage vs Composition}
@@ -298,7 +274,6 @@
     \begin{itemize}
         \item \textbf{Privilégier la composition} pour une meilleure flexibilité.
         \item \textbf{Utiliser l'héritage} lorsque les classes ont une relation naturelle de type \textit{est-un}.
-        \item \textbf{Exemple UML} :
     \end{itemize}
 \end{frame}
 
@@ -446,16 +421,9 @@
 
 \begin{frame}{Exercice Pratique}
     \textbf{Scénario} : Vous développez une application de messagerie. Lorsqu'un nouvel utilisateur s'inscrit, tous les services associés (profil, notifications, emails) doivent être informés.
-
     \vspace{0.5cm}
-
     \textbf{Question} : Quel design pattern utiliseriez-vous pour implémenter cette fonctionnalité, et comment ?
-
-    \vspace{0.5cm}
-
-    \pause
-
-    \textbf{Réponse attendue} : Utilisation du \textbf{Pattern Observer} pour que les services s'abonnent aux événements d'inscription.
+    \vspace{0.5cm}   
 \end{frame}
 
 %==========================================================

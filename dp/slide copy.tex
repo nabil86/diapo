@@ -8,6 +8,14 @@
 
 \documentclass[aspectratio=169]{beamer}
 \input{packages}
+\usepackage{tikz}
+% Configuration de TikZ pour la mise en évidence
+\tikzset{
+    highlight on/.style={
+        alt={#1{fill=red!80!black, color=red!80!black}{fill=gray!30!white, color=gray!30!white}},
+    },
+}
+
 %==========================================================
 \begin{document}
 %==========================================================
